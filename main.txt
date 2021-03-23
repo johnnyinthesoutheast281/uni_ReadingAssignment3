@@ -1,0 +1,153 @@
+//////// NGUYEN MINH TRI - CS2019 - VIETNAMESE-GERMAN UNIVERSITY ////////
+//////////// INTRO TO PROGRAMMING 2 - READING ASSIGNMENT 3 //////////////
+
+
+// Chapter 25: Classes - Inheritance and Polymorphism //
+
+1. Inheritance
+
+
+Inheritance: A class can be inherited by another class, that is called inheritance.
+
+Ex: class myClass{};
+    
+    class derivedClass : public myClass{}; // class derivedClass inherites class myClass // 
+    
+The derived class can access to public or protected members of the original class, but cannot access the private class.
+We can also create new members inside the derived class.
+The member which is created inside derived class can only be accessed by the derived class, while the inherited members can be accessed by both the base class and the derived one.
+
+Ex: class myClass{
+    private:
+       int myNum;
+    protected:
+       char myChar;
+    public:
+       double myDouble;
+    };
+    
+    
+    class derivedClass{
+    // myDouble and myChar can be accessed here, but not myNum //
+    public:
+         float myFloat;
+    };
+    
+    int main(){
+        derivedClass a;
+        a.myNum = 12;   // Error: No 'myNum' member //
+        a.myChar = 'x'; // Error here: not accessible to object //
+        a.myDouble = 10.23;
+        a.myFloat = 3.14;
+        return 0;
+    }
+    
+2. Polymorphism
+
+A pointer to the derived class is compatible with the pointer to the base class since the derived class is also the base class. 
+Polymorphism means the object can morph into different types. It can be archived in C++ by virtual function.
+Virtual means the function can be overridden/redefined in subsequent derived classes.
+
+Ex1 : 
+class baseClass{
+    public:
+    virtual void dowork(){
+        cout << "Hello from base class \n";
+    }
+};
+
+class derivedClass : public baseClass{
+};
+
+int main(){
+    baseClass* o = new derivedClass;
+    o->dowork(); // If in the derived class there is no dowork function, the pointer o will point into the base class //
+    //Print out "Hello from base class" //
+    return 0;
+}
+
+Ex2 :
+
+class baseClass{
+    public:
+    virtual void dowork(){
+        cout << "Hello from base class \n";
+    }
+};
+
+class derivedClass : public baseClass{
+    public:
+    void dowork(){
+        cout << "Hello from derived class \n";
+    }
+};
+
+int main(){
+    baseClass* o = new derivedClass;
+    o->dowork(); // The pointer o will point into the derived class //
+    //Print out "Hello from derived class" //
+    return 0;
+}
+
+The pure virtual function appears when you define it to be = 0.
+The classes that has at least one pure virtual function are called abstract class. It can only be the base class, and in the derived class, it must be redefined.
+
+Ex:
+class baseClass{
+    public:
+    virtual void dowork() = 0;
+};
+
+class derivedClass : public baseClass{
+    public:
+    void dowork(){
+         cout << "Hello from derived class \n";
+    }
+};
+
+int main(){
+    baseClass* o = new derivedClass;
+    o->dowork();
+    //Print out "Hello from base class" //
+    return 0;
+}
+
+
+To ensure the proper deallocation of objects accessed through the base class pointer, we use virtual deconstructor.
+
+
+Ex: class myBaseClass{
+    public:
+       virtual void dowork() = 0;
+       virtual ~myBaseClass(){};
+    };
+    
+
+
+
+
+// Chapter 26 : Exercises //
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
